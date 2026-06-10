@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal oficial de la promoción de Ingeniería Eléctrica de la Universidad Nacional de Ingeniería - Ceremonia de Graduación 2026.">
+  <title>Graduación FIEE UNI 2026 - Ingeniería Eléctrica</title>
+  
+  <!-- Estilos y Fuentes -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Librería de Gráficos Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       BARRA DE NAVEGACIÓN (HEADER)
+       ========================================================================== -->
+  <header>
+    <div class="nav-container">
+      <a href="#inicio" class="logo">
+        <div class="logo-icon">L1</div>
+        <div class="logo-text">FIEE<span>UNI</span></div>
+      </a>
+      
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#proforma">Propuesta APG</a></li>
+          <li><a href="#graduados">Graduados</a></li>
+          <li><a href="#portal-pagos">Mi Portal</a></li>
+          <li><a href="#admin">Caja & Control</a></li>
+        </ul>
+      </nav>
+      
+      <div class="user-status-bar" id="user-navbar-status">
+        <!-- Generado dinámicamente por app.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       CONTENIDO PRINCIPAL
+       ========================================================================== -->
+  <main>
+    
+    <!-- ==========================================================================
+         SECCIÓN INICIO (HOME)
+         ========================================================================== -->
+    <section id="page-inicio" class="page active">
+      <div class="hero">
+        <span class="hero-subtitle">Especialidad de Ingeniería Eléctrica</span>
+        <h1 class="hero-title">Promoción FIEE 2026</h1>
+        <p class="hero-description">
+          Portal oficial para la organización, mapeo de egresados y control financiero de nuestra ceremonia de graduación en el Gran Teatro de la UNI.
+        </p>
+        
+        <!-- Temporizador -->
+        <div class="countdown-container">
+          <div class="countdown-item">
+            <span class="countdown-number" id="count-days">00</span>
+            <span class="countdown-label">Días</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="count-hours">00</span>
+            <span class="countdown-label">Horas</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="count-minutes">00</span>
+            <span class="countdown-label">Min</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="count-seconds">00</span>
+            <span class="countdown-label">Seg</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <div class="info-card">
+          <div class="info-card-icon"><i data-lucide="calendar"></i></div>
+          <h3 class="info-card-title">Fecha del Evento</h3>
+          <p class="info-card-text">
+            Nuestra graduación está programada formalmente para el <span class="info-card-highlight">Viernes, 25 de septiembre de 2026</span>. ¡Reserva el día!
+          </p>
+        </div>
+        
+        <div class="info-card">
+          <div class="info-card-icon"><i data-lucide="map-pin"></i></div>
+          <h3 class="info-card-title">El Gran Teatro de la UNI</h3>
+          <p class="info-card-text">
+            La ceremonia se realizará en el majestuoso <span class="info-card-highlight">Gran Teatro de la Universidad Nacional de Ingeniería</span>, con un aforo completo de 972 butacas.
+          </p>
+        </div>
+        
+        <div class="info-card">
+          <div class="info-card-icon"><i data-lucide="award"></i></div>
+          <h3 class="info-card-title">Productora del Evento</h3>
+          <p class="info-card-text">
+            Contamos con el respaldo de <span class="info-card-highlight">APG Producciones</span> (34 años de experiencia). El paquete incluye toga, medallas, photobook y video digital.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Sección sobre el teatro -->
+      <div class="cost-summary-box" style="margin-bottom: 3rem;">
+        <div class="cost-info-col">
+          <h3 style="font-family:var(--font-title); color:var(--color-gold);"><i data-lucide="sparkles" style="display:inline-block; vertical-align:middle; margin-right:8px;"></i> Gran Teatro de la UNI</h3>
+          <p style="color:var(--color-text-secondary); line-height:1.6; margin-top:1rem;">
+            Diseñado para cumplir con los más altos estándares escénicos del país. Cuenta con un sistema acústico de primer nivel, circuito cerrado de transmisión, y sistemas de iluminación inteligente. Albergará a nuestros familiares, amigos y autoridades académicas en este día histórico para la promoción FIEE 2026.
+          </p>
+        </div>
+        <div style="flex: 1 1 300px; border-radius: var(--border-radius-md); overflow:hidden; border: 1px solid var(--border-glass); max-height:220px;">
+          <img src="assets/teatro_uni.png" style="width:100%; height:100%; object-fit:cover;" alt="Gran Teatro UNI">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN PROFORMA (PROPUESTA APG)
+         ========================================================================== -->
+    <section id="page-proforma" class="page">
+      <div class="proforma-header">
+        <div class="proforma-logo-box">
+          <span style="font-family:var(--font-title); font-size:1.6rem; font-weight:900; color:#000;">APG <span style="color:var(--color-uni-crimson);">PRODUCCIONES</span></span>
+        </div>
+        <p class="proforma-tag">Propuesta APG 2026</p>
+        <h2 class="proforma-title">Paquete de Graduación Profesional</h2>
+        <div class="document-action-row">
+          <a class="btn-document" href="PRESU%20-%20UNI%20FIEE%2037%202026.pdf" target="_blank" rel="noopener">
+            <i data-lucide="file-text"></i> Ver propuesta completa APG
+          </a>
+        </div>
+      </div>
+      
+      <div class="proforma-grid">
+        <div class="proforma-item">
+          <div class="proforma-item-header">
+            <span class="proforma-item-num">1</span>
+            <h4 class="proforma-item-title">Togas de Graduación</h4>
+          </div>
+          <p class="proforma-item-desc">
+            Alquiler de Túnica, Birrete y Borla adaptados a medida. Queda para propiedad del graduado: <strong>01 Estola Bordada</strong> con el nombre del graduando y el Escudo de la UNI, en satin importado, y <strong>01 Birrete Personalizado</strong>.
+          </p>
+        </div>
+        
+        <div class="proforma-item">
+          <div class="proforma-item-header">
+            <span class="proforma-item-num">2</span>
+            <h4 class="proforma-item-title">Medallas y Solaperos</h4>
+          </div>
+          <p class="proforma-item-desc">
+            Medalla de Bronce acuñada (bañada en oro/plata o esmaltada) con el logo de la universidad y nombre de la facultad. Incluye reverso grabado con Nombre/Apellido de cada graduando y solapero en bronce enchapado en oro.
+          </p>
+        </div>
+        
+        <div class="proforma-item">
+          <div class="proforma-item-header">
+            <span class="proforma-item-num">3</span>
+            <h4 class="proforma-item-title">Diploma y Portadiploma</h4>
+          </div>
+          <p class="proforma-item-desc">
+            Diploma simbólico del diseño a elegir con su respectivo portadiploma tamaño Bachiller en dos tapas acolchadas con inscripciones en pan de oro o repujado.
+          </p>
+        </div>
+        
+        <div class="proforma-item">
+          <div class="proforma-item-header">
+            <span class="proforma-item-num">4</span>
+            <h4 class="proforma-item-title">Invitaciones Físicas</h4>
+          </div>
+          <p class="proforma-item-desc">
+            Entrega de <strong>20 invitaciones físicas</strong> elaboradas en material premium con detalles en pan de oro. Ingreso adicional libre para personas no invitadas en lista controlando aforo máximo (972 butacas).
+          </p>
+        </div>
+        
+        <div class="proforma-item">
+          <div class="proforma-item-header">
+            <span class="proforma-item-num">5</span>
+            <h4 class="proforma-item-title">Fotografía Digital</h4>
+          </div>
+          <p class="proforma-item-desc">
+            Sesión de fotos previa en la facultad o estudio (ropa de calle, anuario con toga y retrato). En la ceremonia: fotos de entrada, imposición de medallas, entrega de diplomas y foto familiar final (800 fotos contrato mínimo).
+          </p>
+        </div>
+        
+        <div class="proforma-item">
+          <div class="proforma-item-header">
+            <span class="proforma-item-num">6</span>
+            <h4 class="proforma-item-title">Photobook y Video</h4>
+          </div>
+          <p class="proforma-item-desc">
+            01 Anuario Photobook empastado acolchado exclusivo (20x35cm) con fotos artísticas e individuales de cada graduado. Grabación de video digital de todo el evento (drone, grúa y cámaras Full HD) entregado en Google Drive.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Resumen Financiero -->
+      <div class="cost-summary-box">
+        <div class="cost-info-col">
+          <h3>Resumen de Inversión y Formas de Pago</h3>
+          <p>
+            El presupuesto se calcula con base en la participación de la promoción. La productora solicita un adelanto total de S/ 500 para la firma del contrato y separación de fecha, por lo que cada egresado aporta un adelanto inicial de S/ 25.00.
+          </p>
+          <div class="cost-tags">
+            <div class="cost-tag"><i data-lucide="check"></i> 1er Adelanto: <span class="cost-tag-value">S/ 25.00</span></div>
+            <div class="cost-tag"><i data-lucide="calendar-check"></i> Pago 2: <span class="cost-tag-value">20% contrato</span></div>
+            <div class="cost-tag"><i data-lucide="wallet"></i> Pago 3: <span class="cost-tag-value">50% coordinación</span></div>
+            <div class="cost-tag"><i data-lucide="shield"></i> Pago 4: <span class="cost-tag-value">25% día de evento</span></div>
+            <div class="cost-tag"><i data-lucide="package"></i> Pago 5: <span class="cost-tag-value">5% entrega</span></div>
+          </div>
+        </div>
+        
+        <div class="cost-price-col">
+          <div class="price-card">
+            <span class="price-label">Solo Ceremonia</span>
+            <div class="price-val gold">S/ 520</div>
+            <span class="price-subtext">Por Graduando (Paquete APG)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN GRADUADOS (DIRECTORIO DE LA PROMOCIÓN)
+         ========================================================================== -->
+    <section id="page-graduados" class="page">
+      <div class="section-header-row">
+        <div class="section-title-box">
+          <h2>Directorio de la Promoción</h2>
+          <p>Listado de egresados participantes y datos básicos de contacto.</p>
+        </div>
+        
+        <div class="filter-actions">
+          <div class="search-input-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-grad-input" placeholder="Buscar graduado..." oninput="renderGraduatesList()">
+          </div>
+          <button class="btn-add-graduate" onclick="openAddGraduateModal()">
+            <i data-lucide="user-plus"></i> Registrar Egresado
+          </button>
+        </div>
+      </div>
+      
+      <!-- Grid de egresados -->
+      <div class="graduates-grid" id="graduates-grid">
+        <!-- Renderizado dinámico desde app.js -->
+      </div>
+      
+      <!-- Padrinos y Epónimo -->
+      <h3 class="honors-section-title">Autoridades & Cuadro de Honor</h3>
+      <div class="honors-grid" id="honors-grid">
+        <div class="honor-card">
+          <span class="honor-badge">Padrino 1</span>
+          <div class="honor-pic-box"><i data-lucide="award"></i></div>
+          <h4 class="honor-name" id="padrino-1-name">Por definir</h4>
+          <p class="honor-desc">Primer Padrino de la Promoción FIEE 2026. Elegido por la especialidad.</p>
+        </div>
+        <div class="honor-card">
+          <span class="honor-badge">Padrino 2</span>
+          <div class="honor-pic-box"><i data-lucide="award"></i></div>
+          <h4 class="honor-name" id="padrino-2-name">Por definir</h4>
+          <p class="honor-desc">Segundo Padrino de la Promoción FIEE 2026. Elegido por la especialidad.</p>
+        </div>
+        <div class="honor-card">
+          <span class="honor-badge">Padrino 3</span>
+          <div class="honor-pic-box"><i data-lucide="award"></i></div>
+          <h4 class="honor-name" id="padrino-3-name">Por definir</h4>
+          <p class="honor-desc">Tercer Padrino de la Promoción FIEE 2026. Elegido por la especialidad.</p>
+        </div>
+        <div class="honor-card eponym-card" style="grid-column: span 1;">
+          <span class="honor-badge" style="background:var(--color-uni-crimson); color:#fff; border: 1px solid var(--color-uni-crimson-glow);">Epónimo</span>
+          <div class="honor-pic-box" style="color:var(--color-uni-crimson-glow); border-color:var(--border-neon-crimson);"><i data-lucide="landmark"></i></div>
+          <h4 class="honor-name" id="eponym-name">Por definir</h4>
+          <p class="honor-desc" id="eponym-desc">Personaje ilustre de la ingeniería o ciencia que dará nombre a nuestra promoción FIEE 2026.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN PORTAL DEL GRADUADO (CARGA DE RECIBOS)
+         ========================================================================== -->
+    <section id="page-portal-pagos" class="page">
+      <div id="portal-no-user-view" class="text-center" style="padding: 5rem 2rem;">
+        <i data-lucide="shield-alert" style="width:64px; height:64px; color:var(--color-gold); margin-bottom:1.5rem; opacity:0.8;"></i>
+        <h2 style="font-family:var(--font-title); margin-bottom:1rem;">Sesión No Identificada</h2>
+        <p style="color:var(--color-text-secondary); max-width:500px; margin:0 auto 2rem;">
+          Para subir tu comprobante y configurar tus datos, inicia sesión con tu código UNI y correo institucional.
+        </p>
+        <button class="btn-portal-login" style="margin:0 auto;" onclick="openLoginModal()">
+          <i data-lucide="log-in"></i> Iniciar sesión
+        </button>
+      </div>
+      
+      <div id="portal-active-view" class="portal-layout">
+        <!-- Caja Izquierda: QR de Pago e Instrucciones -->
+        <div class="qr-payment-card">
+          <h3 class="qr-title"><i data-lucide="qr-code"></i> Caja & QR de Pagos</h3>
+          <p style="font-size:0.8rem; color:var(--color-text-secondary); margin-bottom:1rem;">
+            Realiza el depósito o transferencia a la cuenta indicada y sube solo la captura del comprobante desde este portal.
+          </p>
+          
+          <div class="qr-box">
+            <img src="assets/qr_pago.jpg" alt="QR de Pago del Tesorero">
+          </div>
+          
+          <div class="payment-details">
+            <div class="payment-detail-row">
+              <span class="payment-detail-label">Tesorero / Caja:</span>
+              <span class="payment-detail-val">Dali Huamán</span>
+            </div>
+            <div class="payment-detail-row">
+              <span class="payment-detail-label">Nro. Celular:</span>
+              <span class="payment-detail-val copyable" onclick="copyBankData('956659290')">956 659 290 <i data-lucide="copy" style="width:12px; height:12px; display:inline;"></i></span>
+            </div>
+            <div class="payment-detail-row" style="border-top:1px solid rgba(255,255,255,0.05); padding-top:0.5rem; margin-top:0.5rem;">
+              <span class="payment-detail-label">Banco BCP:</span>
+              <span class="payment-detail-val copyable" style="font-family:monospace;" onclick="copyBankData('19379228303087')">19379228303087 <i data-lucide="copy" style="width:12px; height:12px; display:inline;"></i></span>
+            </div>
+            <div class="payment-detail-row">
+              <span class="payment-detail-label">CCI:</span>
+              <span class="payment-detail-val copyable" style="font-family:monospace;" onclick="copyBankData('00219317922830308713')">00219317922830308713 <i data-lucide="copy" style="width:12px; height:12px; display:inline;"></i></span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contenido Derecho: Dashboard Financiero, Carga y Edición -->
+        <div class="portal-actions-container">
+          
+          <!-- Dashboard Financiero Egresado -->
+          <div class="payment-form-box" style="border-color:var(--border-neon-blue); box-shadow:var(--glow-blue);">
+            <h3 class="payment-form-title" style="color:var(--color-elec-blue);"><i data-lucide="wallet"></i> Estado de Cuenta: <span id="portal-grad-name">Cargando...</span></h3>
+            <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1.5rem;" id="portal-grad-email">correo@uni.pe</p>
+            
+            <div class="form-grid" style="grid-template-columns: repeat(3, 1fr); text-align:center;">
+              <div style="background:rgba(255,255,255,0.02); padding:1rem; border-radius:var(--border-radius-md); border:1px solid var(--border-glass);">
+                <span class="price-label">Total APG</span>
+                <div class="price-val" id="portal-total-cost" style="font-size:1.5rem; margin-top:0.25rem;">S/ 0.00</div>
+                <span class="price-subtext" id="portal-toast-status" style="font-size:0.7rem;">Ceremonia</span>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); padding:1rem; border-radius:var(--border-radius-md); border:1px solid var(--border-glass);">
+                <span class="price-label">Validado</span>
+                <div class="price-val text-blue" id="portal-total-paid" style="font-size:1.5rem; margin-top:0.25rem; color:var(--color-elec-blue);">S/ 0.00</div>
+                <span class="price-subtext" style="font-size:0.7rem;">Aprobado en caja</span>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); padding:1rem; border-radius:var(--border-radius-md); border:1px solid var(--border-glass);">
+                <span class="price-label">Pendiente</span>
+                <div class="price-val text-gold" id="portal-balance" style="font-size:1.5rem; margin-top:0.25rem; color:var(--color-gold);">S/ 0.00</div>
+                <span class="price-subtext" style="font-size:0.7rem;">Por completar</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Subir Pago -->
+          <div class="payment-form-box">
+            <h3 class="payment-form-title"><i data-lucide="upload-cloud"></i> Reportar Comprobante de Pago</h3>
+            <form id="payment-upload-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="payment-phase-select">Fase de Pago:</label>
+                  <select id="payment-phase-select" class="form-select" onchange="updatePaymentAmountField()" required>
+                    <!-- Habilitadas dinámicamente -->
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label" for="payment-amount-input">Monto Reportado (S/):</label>
+                  <input type="number" id="payment-amount-input" class="form-input" step="0.01" required>
+                </div>
+                
+                <div class="form-group span-2">
+                  <label class="form-label">Subir Captura del Comprobante:</label>
+                  <div class="file-upload-area" id="receipt-drag-area">
+                    <input type="file" id="receipt-file-input" style="display:none;" accept="image/*">
+                    <div class="file-upload-icon"><i data-lucide="image"></i></div>
+                    <p class="file-upload-text" id="upload-area-text">Arrastra la captura aquí o haz clic para buscar</p>
+                    <div class="file-preview" id="receipt-file-preview">
+                      <img id="receipt-preview-img" src="" alt="Vista previa del recibo">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn-submit-payment" id="btn-submit-payment-btn">
+                <i data-lucide="send"></i> Enviar a Validación de Caja
+              </button>
+            </form>
+          </div>
+          
+          <!-- Editar Perfil del Graduado -->
+          <div class="payment-form-box">
+            <h3 class="payment-form-title" style="color:var(--color-gold);"><i data-lucide="user-cog"></i> Configuración de mi Perfil de Graduación</h3>
+            <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1.5rem;">Asegúrate de que tus datos de bordado y contacto estén al día para evitar retrasos con APG Producciones.</p>
+            <form id="edit-profile-form">
+              <div class="form-grid">
+                <div class="form-group span-2">
+                  <label class="form-label" for="edit-fullname">Nombre para Bordado (Estola):</label>
+                  <input type="text" id="edit-fullname" class="form-input" required placeholder="Ej: JORGE ANTONIO CHAVEZ ALVAREZ">
+                  <span style="font-size:0.7rem; color:var(--color-text-muted);">Debe escribirse tal como aparecerá físicamente en la estola de graduación.</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-phone">Celular de Contacto:</label>
+                  <input type="tel" id="edit-phone" class="form-input" placeholder="Ej. 987654321">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-bday">Fecha de Cumpleaños:</label>
+                  <input type="date" id="edit-bday" class="form-input">
+                </div>
+                <div class="form-group span-2">
+                  <label class="form-label" for="edit-photo">Foto de perfil:</label>
+                  <input type="file" id="edit-photo" class="form-input" accept="image/*">
+                  <span style="font-size:0.7rem; color:var(--color-text-muted);">Puedes actualizar una foto sencilla para tu ficha de graduado.</span>
+                </div>
+              </div>
+              <button type="submit" class="btn-submit-payment" style="background:var(--color-bg-card); border:1px solid var(--color-gold); color:var(--color-gold); margin-top:1.5rem;">
+                <i data-lucide="save"></i> Guardar Cambios de Perfil
+              </button>
+            </form>
+          </div>
+          
+          <!-- Historial de Envíos de Pago -->
+          <div class="payment-history-box">
+            <h3 class="history-title"><i data-lucide="history"></i> Mi Historial de Pagos</h3>
+            <div class="history-table-wrapper">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Fase de Pago</th>
+                    <th>Monto</th>
+                    <th>Fecha Envío</th>
+                    <th>Estado Validación</th>
+                  </tr>
+                </thead>
+                <tbody id="personal-history-tbody">
+                  <!-- Renderizado dinámico -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN CAJA & CONTROL (ADMINISTRADOR)
+         ========================================================================== -->
+    <section id="page-admin" class="page">
+      <!-- Vista de Login (Si no está autenticado) -->
+      <div id="admin-login-view" style="display:block;">
+        <!-- Renderizado dinámico desde admin.js -->
+      </div>
+      
+      <!-- Vista de Dashboard (Si está autenticado) -->
+      <div id="admin-dashboard-view" style="display:none;">
+        <div class="admin-dashboard">
+          
+          <!-- Resumen Superior / Botones Rápidos -->
+          <div class="section-header-row">
+            <div class="section-title-box">
+              <h2>Panel de Control y Caja del Tesorero</h2>
+              <p>Monitorea presupuestos, valida comprobantes y administra el listado de graduados.</p>
+            </div>
+            <div class="filter-actions">
+              <button class="btn" style="background:#28a745; color:#fff; display:flex; align-items:center; gap:8px;" onclick="exportBoxToCSV()">
+                <i data-lucide="download"></i> Descargar Excel Caja (CSV)
+              </button>
+              <button class="btn" style="border-color:var(--color-uni-crimson); color:var(--color-uni-crimson-glow);" onclick="logout()">
+                Cerrar Sesión Admin
+              </button>
+            </div>
+          </div>
+          
+          <!-- Fila de Tarjetas Kpis -->
+          <div class="admin-metrics-grid">
+            <div class="metric-card">
+              <div class="metric-icon-box caja"><i data-lucide="badge-dollar-sign"></i></div>
+              <div class="metric-info">
+                <h4>Total Aprobado en Caja</h4>
+                <div class="metric-val text-green" id="metric-recaudado" style="color:#28a745;">S/ 0.00</div>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-box verif"><i data-lucide="file-clock"></i></div>
+              <div class="metric-info">
+                <h4>Monto en Revisión</h4>
+                <div class="metric-val text-gold" id="metric-pendiente-verif" style="color:var(--color-gold);">S/ 0.00</div>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-box grads"><i data-lucide="graduation-cap"></i></div>
+              <div class="metric-info">
+                <h4>Graduados Registrados</h4>
+                <div class="metric-val" id="metric-graduados">0</div>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-box verif" style="background:rgba(0, 210, 255, 0.1); color:var(--color-elec-blue); border-color:rgba(0,210,255,0.2);"><i data-lucide="eye"></i></div>
+              <div class="metric-info">
+                <h4>Cola de Validación</h4>
+                <div class="metric-val text-blue" id="metric-verificaciones" style="color:var(--color-elec-blue);">0</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Cola de Verificación de Recibos (La Bandeja) -->
+          <div class="admin-section-box">
+            <h3 class="qr-title"><i data-lucide="file-check-2"></i> Bandeja de Pagos por Verificar</h3>
+            <p style="font-size:0.8rem; color:var(--color-text-muted);">Revisa las capturas de pantalla de los comprobantes subidos por los graduados y contrástalas en tu caja (Yape/Plin).</p>
+            
+            <div class="verification-table-wrapper">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Graduando</th>
+                    <th>Fase de Pago</th>
+                    <th>Monto</th>
+                    <th>Comprobante</th>
+                    <th>Fecha Reporte</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-verification-tbody">
+                  <!-- Renderizado dinámico desde admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Grid de Gráficos e Interruptores de Configuración -->
+          <div class="admin-charts-configs-grid">
+            
+            <!-- Gráficos Estadísticos -->
+            <div class="chart-card-box">
+              <h3 class="qr-title"><i data-lucide="bar-chart-3"></i> Estadísticas Financieras</h3>
+              
+              <!-- Contenedor de gráficos interactivos -->
+              <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:1.5rem;">
+                <div style="flex:1 1 200px; height:200px; position:relative;">
+                  <canvas id="payments-status-chart"></canvas>
+                </div>
+                <div style="flex:1.2 1 240px; height:200px; position:relative;">
+                  <canvas id="cash-balance-chart"></canvas>
+                </div>
+              </div>
+              
+              <!-- Fallback interactivo si falla Chart.js -->
+              <div id="charts-fallback" class="chart-container" style="display:none; height:200px;">
+                <!-- Rellenado dinámicamente -->
+              </div>
+            </div>
+            
+            <!-- Interruptores Fases de Pago -->
+            <div id="admin-config-container">
+              <!-- Renderizado dinámico desde admin.js -->
+            </div>
+            
+          </div>
+          
+          <!-- Lista Completa de Graduados, Saldos y Roles de Administración -->
+          <div class="admin-section-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+              <h3 class="qr-title" style="margin:0;"><i data-lucide="users"></i> Padrón Financiero y Gestión de Roles</h3>
+              <button class="btn-manage-grads" onclick="openAddGraduateModal()"><i data-lucide="user-plus" style="width:14px; height:14px; display:inline;"></i> Registrar Nuevo</button>
+            </div>
+            <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1.5rem;">
+              Como administrador, puedes ascender a cualquier otro graduado para que colabore como Administrador/Tesorero contigo, o removerlo de su puesto en cualquier momento.
+            </p>
+            
+            <div class="verification-table-wrapper">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Graduando</th>
+                    <th>Rol en la Web</th>
+                    <th>Código UNI</th>
+                    <th>Monto Recaudado</th>
+                    <th>Saldo Restante</th>
+                    <th>Acciones de Tesorero</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-graduates-tbody">
+                  <!-- Renderizado dinámico desde admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Formulario Padrinos y Epónimo -->
+          <div class="admin-section-box">
+            <h3 class="qr-title"><i data-lucide="book-marked"></i> Editar Padrinos & Epónimo</h3>
+            <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1.5rem;">Actualiza la información de los padrinos y del epónimo una vez que la promoción los decida en los próximos meses.</p>
+            <form id="admin-honors-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="admin-input-padrino-1">Primer Padrino:</label>
+                  <input type="text" id="admin-input-padrino-1" class="form-input" placeholder="Nombre del primer padrino">
+                  <label class="form-label" style="font-size:0.75rem; margin-top:5px;" for="admin-input-padrino-1-photo">Foto Primer Padrino:</label>
+                  <input type="file" id="admin-input-padrino-1-photo" class="form-input" accept="image/*" style="font-size:0.75rem; padding:4px;">
+                  <label style="font-size:0.7rem; color:var(--color-uni-crimson-glow); cursor:pointer; margin-top:4px; display:inline-flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="admin-clear-padrino-1-photo"> Eliminar foto actual
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="admin-input-padrino-2">Segundo Padrino:</label>
+                  <input type="text" id="admin-input-padrino-2" class="form-input" placeholder="Nombre del segundo padrino">
+                  <label class="form-label" style="font-size:0.75rem; margin-top:5px;" for="admin-input-padrino-2-photo">Foto Segundo Padrino:</label>
+                  <input type="file" id="admin-input-padrino-2-photo" class="form-input" accept="image/*" style="font-size:0.75rem; padding:4px;">
+                  <label style="font-size:0.7rem; color:var(--color-uni-crimson-glow); cursor:pointer; margin-top:4px; display:inline-flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="admin-clear-padrino-2-photo"> Eliminar foto actual
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="admin-input-padrino-3">Tercer Padrino:</label>
+                  <input type="text" id="admin-input-padrino-3" class="form-input" placeholder="Nombre del tercer padrino">
+                  <label class="form-label" style="font-size:0.75rem; margin-top:5px;" for="admin-input-padrino-3-photo">Foto Tercer Padrino:</label>
+                  <input type="file" id="admin-input-padrino-3-photo" class="form-input" accept="image/*" style="font-size:0.75rem; padding:4px;">
+                  <label style="font-size:0.7rem; color:var(--color-uni-crimson-glow); cursor:pointer; margin-top:4px; display:inline-flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="admin-clear-padrino-3-photo"> Eliminar foto actual
+                  </label>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                  <label class="form-label" for="admin-input-eponym-name">Nombre del Epónimo de la Promoción:</label>
+                  <input type="text" id="admin-input-eponym-name" class="form-input" placeholder="Nombre del personaje ilustre">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                  <label class="form-label" for="admin-input-eponym-photo">Foto de Perfil del Epónimo:</label>
+                  <input type="file" id="admin-input-eponym-photo" class="form-input" accept="image/*">
+                  <label style="font-size:0.7rem; color:var(--color-uni-crimson-glow); cursor:pointer; margin-top:4px; display:inline-flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="admin-clear-eponym-photo"> Eliminar foto actual
+                  </label>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                  <label class="form-label" for="admin-input-eponym-desc">Descripción/Semblanza del Epónimo:</label>
+                  <textarea id="admin-input-eponym-desc" class="form-input" style="min-height:80px; font-family:var(--font-body);" placeholder="Breve historia del personaje ilustre y por qué representa la especialidad..."></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn-submit-payment" style="margin-top:1.5rem; background:rgba(255,189,89,0.1); border:1px solid var(--color-gold); color:var(--color-gold);">
+                 <i data-lucide="check"></i> Guardar Autoridades de la Promoción
+              </button>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- ==========================================================================
+       MODALES
+       ========================================================================== -->
+
+  <!-- Modal: Detalle Perfil de Graduando -->
+  <div class="modal-overlay" id="graduate-detail-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Detalle del Graduado</h3>
+        <button class="modal-close" onclick="closeGraduateDetailModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Renderizado dinámico por app.js -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeGraduateDetailModal()">Cerrar Perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Registro de Nuevo Graduando -->
+  <div class="modal-overlay" id="add-graduate-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Registrar Nuevo Graduando</h3>
+        <button class="modal-close" onclick="closeAddGraduateModal()">&times;</button>
+      </div>
+      <form id="add-graduate-form">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="grad-name">Nombre / Apodo:</label>
+              <input type="text" id="grad-name" class="form-input" required placeholder="Ej: Jorge Chávez">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="grad-code">Código UNI:</label>
+              <input type="text" id="grad-code" class="form-input" required placeholder="Ej: 20210390D" pattern="[0-9]{8}[A-Za-z]">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="grad-email">Correo Electrónico:</label>
+              <input type="email" id="grad-email" class="form-input" required placeholder="correo@uni.pe" pattern="^[^@\s]+@uni\.pe$">
+            </div>
+            <div class="form-group span-2">
+              <label class="form-label" for="grad-fullname">Nombre Bordado Estola:</label>
+              <input type="text" id="grad-fullname" class="form-input" placeholder="Nombre completo para estola">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="grad-phone">Celular:</label>
+              <input type="tel" id="grad-phone" class="form-input" placeholder="987654321">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="grad-bday">Cumpleaños:</label>
+              <input type="date" id="grad-bday" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="grad-role">Rol del Usuario:</label>
+              <select id="grad-role" class="form-select">
+                <option value="student">Estudiante (Egresado)</option>
+                <option value="admin">Administrador (Tesorero)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeAddGraduateModal()">Cancelar</button>
+          <button type="submit" class="btn-submit-payment" style="margin:0;">Registrar en Padrón</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Acceso de Graduado -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-content" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Acceso de Graduado</h3>
+        <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+      </div>
+      <form id="login-form">
+        <div class="modal-body">
+          <p style="color:var(--color-text-secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+            Ingresa con tu código UNI y correo institucional. Si aún no estás registrado, se creará tu cuenta sencilla.
+          </p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="login-code">Código UNI:</label>
+              <input type="text" id="login-code" class="form-input" required placeholder="20210390D" pattern="[0-9]{8}[A-Za-z]">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="login-email">Correo UNI:</label>
+              <input type="email" id="login-email" class="form-input" required placeholder="dali.huaman.c@uni.pe" pattern="^[^@\s]+@uni\.pe$">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeLoginModal()">Cancelar</button>
+          <button type="submit" class="btn-submit-payment" style="margin:0;">Entrar / Crear Cuenta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Razón de Rechazo de Pagos -->
+  <div class="modal-overlay" id="rejection-modal">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Rechazar Comprobante</h3>
+        <button class="modal-close" onclick="closeRejectionModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Renderizado dinámico desde admin.js -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="closeRejectionModal()">Cancelar</button>
+        <button type="button" class="btn-submit-payment" style="margin:0; background-color:#dc3545;" onclick="submitRejection()">Rechazar Recibo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Visor de Recibo -->
+  <div class="modal-overlay" id="receipt-viewer-modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Comprobante de Pago</h3>
+        <button class="modal-close" onclick="closeReceiptViewerModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Renderizado dinámico -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeReceiptViewerModal()">Cerrar Visor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notificación Toast General -->
+  <div id="toast-notification">
+    <div class="toast-icon"></div>
+    <div class="toast-message">Mensaje de notificación.</div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-brand-title">Promoción FIEE 2026</div>
+        <p class="footer-brand-desc">
+          Especialidad de Ingeniería Eléctrica de la Universidad Nacional de Ingeniería. Diseñado profesionalmente para la gestión autogestionada de la promoción.
+        </p>
+      </div>
+      
+      <div class="footer-links-col">
+        <h4>Enlaces Rápidos</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#proforma">Propuesta APG</a></li>
+          <li><a href="#graduados">Graduados</a></li>
+          <li><a href="#portal-pagos">Mi Portal de Pagos</a></li>
+          <li><a href="#admin">Caja & Administración</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links-col">
+        <h4>Especialidad</h4>
+        <ul>
+          <li>Facultad de Ingeniería Eléctrica y Electrónica</li>
+          <li>Universidad Nacional de Ingeniería</li>
+          <li>Gran Teatro de la UNI</li>
+          <li>Contacto Caja: 956 659 290</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Promoción Ingeniería Eléctrica FIEE UNI. Hecho con <span>&hearts;</span> por la Promoción.</p>
+      <p>Productora oficial del evento: <strong>APG Producciones</strong></p>
+    </div>
+  </footer>
+
+  <!-- Iconos Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Cargar los Scripts del Proyecto -->
+  <script src="mockData.js"></script>
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
