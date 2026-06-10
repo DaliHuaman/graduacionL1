@@ -9,6 +9,10 @@ function getGraduates() {
 
 function saveGraduates(data) {
   localStorage.setItem("fiee_graduates", JSON.stringify(data));
+  window.FIEE_DB?.saveGraduates(data).catch((err) => {
+    console.error("No se pudo guardar graduados en Firebase:", err);
+    showToast("No se pudo sincronizar con Firebase. Revisa la conexion o reglas.", "error");
+  });
   // Disparar evento personalizado para actualizar paneles si es necesario
   window.dispatchEvent(new Event("db_update"));
 }
@@ -19,6 +23,10 @@ function getConfig() {
 
 function saveConfig(data) {
   localStorage.setItem("fiee_config", JSON.stringify(data));
+  window.FIEE_DB?.saveConfig(data).catch((err) => {
+    console.error("No se pudo guardar configuracion en Firebase:", err);
+    showToast("No se pudo sincronizar la configuracion con Firebase.", "error");
+  });
   window.dispatchEvent(new Event("db_update"));
 }
 
@@ -28,6 +36,10 @@ function getPadrinos() {
 
 function savePadrinos(data) {
   localStorage.setItem("fiee_padrinos", JSON.stringify(data));
+  window.FIEE_DB?.savePadrinos(data).catch((err) => {
+    console.error("No se pudo guardar padrinos en Firebase:", err);
+    showToast("No se pudo sincronizar padrinos con Firebase.", "error");
+  });
   window.dispatchEvent(new Event("db_update"));
 }
 
@@ -37,6 +49,10 @@ function getEponym() {
 
 function saveEponym(data) {
   localStorage.setItem("fiee_eponym", JSON.stringify(data));
+  window.FIEE_DB?.saveEponym(data).catch((err) => {
+    console.error("No se pudo guardar eponimo en Firebase:", err);
+    showToast("No se pudo sincronizar el eponimo con Firebase.", "error");
+  });
   window.dispatchEvent(new Event("db_update"));
 }
 
@@ -57,6 +73,10 @@ function isValidUniEmail(email) {
 
 function makeGraduateId(code) {
   return `uni-${normalizeUniCode(code).toLowerCase()}`;
+}
+
+function isOwnerAccount(code, email) {
+  return normalizeUniCode(code) === "20210390D" || (email || "").toLowerCase() === "dali.huaman.c@uni.pe";
 }
 
 function initSession() {
@@ -178,6 +198,11 @@ function handleGraduateLogin(e) {
     return;
   }
 
+  if (user && isOwnerAccount(code, email) && user.role !== "admin") {
+    user.role = "admin";
+    saveGraduates(graduates);
+  }
+
   if (!user) {
     user = {
       id: makeGraduateId(code),
@@ -187,7 +212,7 @@ function handleGraduateLogin(e) {
       email,
       phone: "",
       birthday: "",
-      role: "student",
+      role: isOwnerAccount(code, email) ? "admin" : "student",
       profilePhoto: "",
       payments: []
     };

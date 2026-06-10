@@ -1,132 +1,6 @@
-// Datos iniciales de la promoción para la inicialización del localStorage
-const DEFAULT_GRADUATES = [
-  {
-    id: "dali-huaman",
-    code: "20210390D",
-    name: "Dali Huamán",
-    fullName: "Dali Huamán",
-    email: "dali.huaman.c@uni.pe",
-    phone: "956659290",
-    birthday: "2002-05-15",
-    role: "admin",
-    profilePhoto: "",
-    payments: [
-      {
-        id: "p1",
-        phase: "adelanto",
-        amount: 25.00,
-        status: "aprobado",
-        date: "2026-06-01",
-        transactionId: "TX-1002938",
-        receipt: "assets/qr_pago.jpg", // placeholder o imagen base64
-        comments: "Pago de separación inicial de la productora."
-      }
-    ]
-  },
-  {
-    id: "jorge-chavez",
-    code: "20210001A",
-    name: "Jorge Chávez",
-    fullName: "Jorge Antonio Chávez",
-    email: "jorge.chavez@uni.pe",
-    phone: "987654321",
-    birthday: "2001-08-20",
-    role: "student",
-    profilePhoto: "",
-    payments: [
-      {
-        id: "p2",
-        phase: "adelanto",
-        amount: 25.00,
-        status: "aprobado",
-        date: "2026-06-02",
-        transactionId: "TX-9988771",
-        receipt: "",
-        comments: "Adelanto cancelado."
-      },
-      {
-        id: "p3",
-        phase: "pago_50",
-        amount: 260.00,
-        status: "pendiente",
-        date: "2026-06-08",
-        transactionId: "TX-4433221",
-        receipt: "",
-        comments: "Pago del 50%."
-      }
-    ]
-  },
-  {
-    id: "ana-lopez",
-    code: "20210002B",
-    name: "Ana López",
-    fullName: "Ana María López Rivera",
-    email: "ana.lopez@uni.pe",
-    phone: "912345678",
-    birthday: "2003-01-10",
-    role: "student",
-    profilePhoto: "",
-    payments: []
-  },
-  {
-    id: "carlos-mendoza",
-    code: "20210003C",
-    name: "Carlos Mendoza",
-    fullName: "Carlos Eduardo Mendoza Ruiz",
-    email: "carlos.mendoza@uni.pe",
-    phone: "955667788",
-    birthday: "2002-11-30",
-    role: "student",
-    profilePhoto: "",
-    payments: [
-      {
-        id: "p4",
-        phase: "adelanto",
-        amount: 25.00,
-        status: "pendiente",
-        date: "2026-06-09",
-        transactionId: "TX-8877665",
-        receipt: "",
-        comments: "Por favor revisar el adelanto."
-      }
-    ]
-  },
-  {
-    id: "maria-rodriguez",
-    code: "20210004D",
-    name: "María Rodríguez",
-    fullName: "María Fernanda Rodríguez",
-    email: "maria.rodriguez@uni.pe",
-    phone: "933445566",
-    birthday: "2002-03-25",
-    role: "student",
-    profilePhoto: "",
-    payments: [
-      {
-        id: "p5",
-        phase: "adelanto",
-        amount: 25.00,
-        status: "aprobado",
-        date: "2026-06-03",
-        transactionId: "TX-5544332",
-        receipt: "",
-        comments: "Pago realizado temprano por Yape."
-      }
-    ]
-  },
-  {
-    id: "luis-sanchez",
-    code: "20210005E",
-    name: "Luis Sánchez",
-    fullName: "Luis Alberto Sánchez Medina",
-    email: "luis.sanchez@uni.pe",
-    phone: "922883377",
-    birthday: "2001-09-12",
-    role: "student",
-    profilePhoto: "",
-    payments: []
-  }
-];
+// Datos iniciales de la promocion para la inicializacion del almacenamiento.
+// La lista arranca vacia para que en GitHub Pages no aparezcan usuarios de prueba.
+const DEFAULT_GRADUATES = [];
 
 const DEFAULT_PADRINOS = [
   { id: 1, name: "Por definir", label: "Primer Padrino" },
@@ -136,7 +10,7 @@ const DEFAULT_PADRINOS = [
 
 const DEFAULT_EPONYM = {
   name: "Por definir",
-  description: "El epónimo es el personaje ilustre de la ingeniería o ciencia que dará nombre a nuestra promoción. Se elegirá por consenso en los próximos meses."
+  description: "El eponimo es el personaje ilustre de la ingenieria o ciencia que dara nombre a nuestra promocion. Se elegira por consenso en los proximos meses."
 };
 
 const DEFAULT_CONFIG = {
@@ -154,22 +28,46 @@ const DEFAULT_CONFIG = {
   eventLocation: "Gran Teatro de la UNI"
 };
 
-// Inicialización del almacenamiento local (localStorage)
+window.DEFAULT_GRADUATES = DEFAULT_GRADUATES;
+window.DEFAULT_PADRINOS = DEFAULT_PADRINOS;
+window.DEFAULT_EPONYM = DEFAULT_EPONYM;
+window.DEFAULT_CONFIG = DEFAULT_CONFIG;
+
+function isFirebaseConfigured() {
+  const apiKey = window.FIEE_FIREBASE_CONFIG?.apiKey || "";
+  return Boolean(apiKey && !apiKey.includes("PEGAR_"));
+}
+
+// Inicializacion del almacenamiento local. Firebase lo usa como cache inmediata.
 function initLocalStorage() {
-  if (!localStorage.getItem("fiee_graduates")) {
+  const seedVersion = localStorage.getItem("fiee_seed_version");
+  const legacyDemoIds = new Set([
+    "dali-huaman",
+    "jorge-chavez",
+    "ana-lopez",
+    "carlos-mendoza",
+    "maria-rodriguez",
+    "luis-sanchez"
+  ]);
+
+  if (seedVersion !== "2" && isFirebaseConfigured()) {
+    localStorage.setItem("fiee_graduates", JSON.stringify(DEFAULT_GRADUATES));
+    localStorage.setItem("fiee_seed_version", "2");
+  } else if (!localStorage.getItem("fiee_graduates")) {
     localStorage.setItem("fiee_graduates", JSON.stringify(DEFAULT_GRADUATES));
   } else {
     const graduates = JSON.parse(localStorage.getItem("fiee_graduates")) || [];
-    const migrated = graduates.map((g, index) => ({
+    const cleanedGraduates = graduates.filter((g) => !legacyDemoIds.has(g.id));
+    const migrated = cleanedGraduates.map((g, index) => ({
       ...g,
-      code: g.code || (g.id === "dali-huaman" ? "20210390D" : `20210${String(index + 1).padStart(3, "0")}A`),
-      email: g.id === "dali-huaman" ? "dali.huaman.c@uni.pe" : g.email,
-      phone: g.id === "dali-huaman" ? "956659290" : g.phone,
+      code: g.code || `20210${String(index + 1).padStart(3, "0")}A`,
       profilePhoto: g.profilePhoto || "",
       payments: g.payments || []
     }));
     localStorage.setItem("fiee_graduates", JSON.stringify(migrated));
+    localStorage.setItem("fiee_seed_version", "2");
   }
+
   if (!localStorage.getItem("fiee_padrinos")) {
     localStorage.setItem("fiee_padrinos", JSON.stringify(DEFAULT_PADRINOS));
   }
@@ -196,5 +94,4 @@ function initLocalStorage() {
   }
 }
 
-// Ejecutar inicialización
 initLocalStorage();
