@@ -135,7 +135,7 @@ function renderUserNavbarBadge() {
   
   const adminNavItem = document.querySelector('nav a[href="#admin"]')?.closest("li");
   if (adminNavItem) {
-    adminNavItem.style.display = currentUser?.role === "admin" ? "" : "none";
+    adminNavItem.style.display = ["admin", "superadmin"].includes(currentUser?.role) ? "" : "none";
   }
   
   if (!currentUser) {
@@ -151,7 +151,7 @@ function renderUserNavbarBadge() {
   container.innerHTML = `
     <div class="user-badge">
       <span class="user-badge-name">${currentUser.name || currentUser.code}</span>
-      <span class="user-badge-role ${currentUser.role}">${currentUser.role === 'admin' ? 'Admin' : 'Estudiante'}</span>
+      <span class="user-badge-role ${currentUser.role}">${currentUser.role === 'superadmin'? 'Admin Supremo': currentUser.role === 'admin' ? 'Admin' : 'Estudiante'}</span>
       <button class="user-logout" onclick="logout()" title="Cerrar Sesión">
         <i data-lucide="log-out" style="width:16px; height:16px;"></i>
       </button>
@@ -212,7 +212,7 @@ function handleGraduateLogin(e) {
       email,
       phone: "",
       birthday: "",
-      role: isOwnerAccount(code, email) ? "admin" : "student",
+      role: isOwnerAccount(code, email) ? "superadmin" : "student",
       profilePhoto: "",
       payments: []
     };

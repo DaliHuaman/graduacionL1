@@ -16,7 +16,7 @@ function initAdminPanel() {
   if (!loginView || !dashboardView) return;
   
   // Si el usuario actual de la app no es admin, no dejarlo pasar.
-  if (!currentUser || currentUser.role !== "admin") {
+  if (!currentUser || !["admin","superadmin"].includes(currentUser.role)) {
     loginView.style.display = "block";
     dashboardView.style.display = "none";
     const userLabel = currentUser ? `<strong>${currentUser.name}</strong>` : "ninguna cuenta";
@@ -429,9 +429,9 @@ function renderGraduatesAdminList() {
     
     // Definir botones de acción de rol (Promover / Demote)
     let roleActionBtn = "";
-    if (currentUser?.id !== "dali-huaman") {
+    if (currentUser?.role !== "superadmin") {
       roleActionBtn = `<span style="font-size:0.75rem; color:var(--color-text-muted);">Solo admin supremo</span>`;
-    } else if (g.id === "dali-huaman") {
+    } else if (g.role === "superadmin") {
       roleActionBtn = `<span style="font-size:0.75rem; color:var(--color-text-muted);">Admin Principal</span>`;
     } else {
       if (g.role === "admin") {
@@ -473,7 +473,7 @@ function renderGraduatesAdminList() {
 }
 
 function toggleUserRole(userId, newRole) {
-  if (currentUser?.id !== "dali-huaman") {
+  if (currentUser?.role !== "superadmin") {
     showToast("Solo el administrador supremo puede modificar roles.", "error");
     return;
   }
@@ -497,7 +497,7 @@ function toggleUserRole(userId, newRole) {
 }
 
 function deleteGraduate(userId) {
-  if (currentUser?.id !== "dali-huaman") {
+  if (currentUser?.role !== "superadmin") {
     showToast("Solo el administrador supremo puede eliminar usuarios.", "error");
     return;
   }
