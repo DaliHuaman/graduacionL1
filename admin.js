@@ -452,7 +452,7 @@ function renderGraduatesAdminList() {
     tr.innerHTML = `
       <td><strong>${g.name}</strong></td>
       <td>
-        <span class="user-badge-role ${g.role}">${g.role === 'admin' ? 'Admin' : 'Estudiante'}</span>
+        <span class="user-badge-role ${g.role}">${g.role === 'superadmin' ? 'ADMIN SUPREMO' : g.role === 'admin' ? 'ADMIN' : 'ESTUDIANTE'}</span>
       </td>
       <td>${g.code || 'Sin código'}</td>
       <td class="text-blue">S/ ${totalPagado.toFixed(2)}</td>
@@ -460,7 +460,7 @@ function renderGraduatesAdminList() {
       <td>
         <div style="display:flex; gap:8px; align-items:center;">
           ${roleActionBtn}
-          ${currentUser?.id === 'dali-huaman' && g.id !== 'dali-huaman' ? `
+          ${currentUser?.role === 'superadmin' && g.id !== currentUser.id ? `
             <button class="btn-reject-modal" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="deleteGraduate('${g.id}')">
               Eliminar
             </button>
