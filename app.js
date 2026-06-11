@@ -198,8 +198,8 @@ function handleGraduateLogin(e) {
     return;
   }
 
-  if (user && isOwnerAccount(code, email) && user.role !== "admin") {
-    user.role = "admin";
+  if (user && isOwnerAccount(code, email) && user.role !== "superadmin") {
+    user.role = "superadmin";
     saveGraduates(graduates);
   }
 
