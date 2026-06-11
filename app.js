@@ -481,6 +481,17 @@ function renderHonorsList() {
   }
 }
 
+function formatBirthday(dateString) {
+  if (!dateString) return "No especificado";
+
+  const [year, month, day] = dateString.split("-");
+
+  return new Date(year, month - 1, day).toLocaleDateString("es-PE", {
+    day: "numeric",
+    month: "long"
+  });
+}
+
 // --- MODALES: DETALLE DE GRADUADO ---
 function openGraduateDetailModal(userId) {
   const graduates = getGraduates();
@@ -490,7 +501,7 @@ function openGraduateDetailModal(userId) {
   const modal = document.getElementById("graduate-detail-modal");
   if (!modal) return;
   
-  const formattedBday = grad.birthday ? new Date(grad.birthday).toLocaleDateString("es-PE", { day: 'numeric', month: 'long' }) : "No especificado";
+  const formattedBday = formatBirthday(grad.birthday);
   
   modal.querySelector(".modal-title").textContent = `Perfil de Graduando`;
   
