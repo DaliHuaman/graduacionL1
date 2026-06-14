@@ -133,6 +133,11 @@ function renderUserNavbarBadge() {
   const container = document.getElementById("user-navbar-status");
   if (!container) return;
   
+  const registerBtn = document.getElementById("btn-register-graduate");
+  if (registerBtn) {
+    registerBtn.style.display = currentUser?.role === "superadmin" ? "inline-flex" : "none";
+  }
+
   const adminNavItem = document.querySelector('nav a[href="#admin"]')?.closest("li");
   if (adminNavItem) {
     adminNavItem.style.display = ["admin", "superadmin"].includes(currentUser?.role) ? "" : "none";
@@ -534,6 +539,13 @@ function closeGraduateDetailModal() {
 
 // --- MODAL: AGREGAR GRADUADO ---
 function openAddGraduateModal() {
+  if (currentUser?.role !== "superadmin") {
+    showToast(
+      "Solo el Administrador Supremo puede registrar graduados.",
+      "error"
+    );
+    return;
+  }
   document.getElementById("add-graduate-modal")?.classList.add("active");
 }
 

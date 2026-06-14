@@ -100,13 +100,6 @@
         nextIds.add(id);
         batch.set(graduatesRef.doc(id), graduate, { merge: true });
       });
-
-      remoteGraduateIds.forEach((id) => {
-        if (!nextIds.has(id)) {
-          batch.delete(graduatesRef.doc(id));
-        }
-      });
-
       await batch.commit();
     },
     saveConfig: async (data) => siteRef.set(data, { merge: true }),
