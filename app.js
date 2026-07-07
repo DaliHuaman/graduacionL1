@@ -17,8 +17,42 @@ function saveGraduates(data) {
   window.dispatchEvent(new Event("db_update"));
 }
 
+function normalizeEventConfig(config = {}) {
+  const defaults = window.DEFAULT_CONFIG || {};
+  const defaultPhases = defaults.phases || {};
+  const currentProducer = (config.producerName || "").toLowerCase();
+  const isLegacyProducer = !currentProducer || currentProducer.includes("apg");
+  const normalized = { ...defaults, ...config };
+
+  normalized.producerName = isLegacyProducer ? defaults.producerName : normalized.producerName;
+  normalized.totalCeremonia = isLegacyProducer ? defaults.totalCeremonia : Number(normalized.totalCeremonia || defaults.totalCeremonia || 0);
+  normalized.phases = Object.keys(defaultPhases).reduce((acc, key) => {
+    const currentPhase = config.phases?.[key] || {};
+    acc[key] = { ...defaultPhases[key], ...currentPhase };
+    if (isLegacyProducer && key !== "adelanto") {
+      acc[key] = { ...defaultPhases[key], enabled: currentPhase.enabled ?? defaultPhases[key].enabled };
+    }
+    return acc;
+  }, {});
+
+  return normalized;
+}
+
 function getConfig() {
-  return JSON.parse(localStorage.getItem("fiee_config")) || {};
+  const rawConfig = JSON.parse(localStorage.getItem("fiee_config")) || {};
+  const normalizedConfig = normalizeEventConfig(rawConfig);
+  if (JSON.stringify(rawConfig) !== JSON.stringify(normalizedConfig)) {
+    localStorage.setItem("fiee_config", JSON.stringify(normalizedConfig));
+  }
+  return normalizedConfig;
+}
+
+function getPhasePaymentAmount(phaseKey, totalDebido, config) {
+  const phase = config.phases?.[phaseKey];
+  if (!phase) return 0;
+  if (typeof phase.amount === "number") return phase.amount;
+  const baseAmount = totalDebido * Number(phase.pct || 0);
+  return Math.max(baseAmount - Number(phase.amountOffset || 0), 0);
 }
 
 function saveConfig(data) {
@@ -645,7 +679,7 @@ function initPortalPagos() {
   
   document.getElementById("portal-grad-name").textContent = currentUser.name;
   document.getElementById("portal-grad-email").textContent = currentUser.email;
-  document.getElementById("portal-toast-status").textContent = "Paquete ceremonia APG";
+  document.getElementById("portal-toast-status").textContent = `Paquete ceremonia ${config.producerName}`;
   document.getElementById("portal-total-cost").textContent = `S/ ${totalDebido.toFixed(2)}`;
   document.getElementById("portal-total-paid").textContent = `S/ ${totalPagado.toFixed(2)}`;
   document.getElementById("portal-balance").textContent = `S/ ${saldoPendiente.toFixed(2)}`;
@@ -674,8 +708,8 @@ function initPortalPagos() {
     if (config.phases.pago_20?.enabled) {
       const yaPago20 = currentUser.payments.some(p => p.phase === "pago_20" && (p.status === "aprobado" || p.status === "pendiente"));
       if (!yaPago20) {
-        const monto20 = totalDebido * 0.20;
-        phaseSelect.innerHTML += `<option value="pago_20">Fase 2: Pago 20% (S/ ${monto20.toFixed(2)})</option>`;
+        const monto20 = getPhasePaymentAmount("pago_20", totalDebido, config);
+        phaseSelect.innerHTML += `<option value="pago_20">Fase 2: ${config.phases.pago_20.name} (S/ ${monto20.toFixed(2)})</option>`;
       }
     }
     
@@ -683,8 +717,8 @@ function initPortalPagos() {
     if (config.phases.pago_50.enabled) {
       const yaPago50 = currentUser.payments.some(p => p.phase === "pago_50" && (p.status === "aprobado" || p.status === "pendiente"));
       if (!yaPago50) {
-        const monto50 = totalDebido * 0.50;
-        phaseSelect.innerHTML += `<option value="pago_50">Fase 3: Pago 50% (S/ ${monto50.toFixed(2)})</option>`;
+        const monto50 = getPhasePaymentAmount("pago_50", totalDebido, config);
+        phaseSelect.innerHTML += `<option value="pago_50">Fase 3: ${config.phases.pago_50.name} (S/ ${monto50.toFixed(2)})</option>`;
       }
     }
     
@@ -692,8 +726,8 @@ function initPortalPagos() {
     if (config.phases.pago_25.enabled) {
       const yaPago25 = currentUser.payments.some(p => p.phase === "pago_25" && (p.status === "aprobado" || p.status === "pendiente"));
       if (!yaPago25) {
-        const monto25 = totalDebido * 0.25;
-        phaseSelect.innerHTML += `<option value="pago_25">Fase 4: Pago 25% (S/ ${monto25.toFixed(2)})</option>`;
+        const monto25 = getPhasePaymentAmount("pago_25", totalDebido, config);
+        phaseSelect.innerHTML += `<option value="pago_25">Fase 4: ${config.phases.pago_25.name} (S/ ${monto25.toFixed(2)})</option>`;
       }
     }
     
@@ -701,8 +735,8 @@ function initPortalPagos() {
     if (config.phases.pago_5?.enabled) {
       const yaPago5 = currentUser.payments.some(p => p.phase === "pago_5" && (p.status === "aprobado" || p.status === "pendiente"));
       if (!yaPago5) {
-        const monto5 = totalDebido * 0.05;
-        phaseSelect.innerHTML += `<option value="pago_5">Fase 5: Pago 5% (S/ ${monto5.toFixed(2)})</option>`;
+        const monto5 = getPhasePaymentAmount("pago_5", totalDebido, config);
+        phaseSelect.innerHTML += `<option value="pago_5">Fase 5: ${config.phases.pago_5.name} (S/ ${monto5.toFixed(2)})</option>`;
       }
     }
     
@@ -738,13 +772,13 @@ function updatePaymentAmountField() {
   if (phase === "adelanto") {
     amountInput.value = 25.00;
   } else if (phase === "pago_20") {
-    amountInput.value = (totalDebido * 0.20).toFixed(2);
+    amountInput.value = getPhasePaymentAmount("pago_20", totalDebido, config).toFixed(2);
   } else if (phase === "pago_50") {
-    amountInput.value = (totalDebido * 0.50).toFixed(2);
+    amountInput.value = getPhasePaymentAmount("pago_50", totalDebido, config).toFixed(2);
   } else if (phase === "pago_25") {
-    amountInput.value = (totalDebido * 0.25).toFixed(2);
+    amountInput.value = getPhasePaymentAmount("pago_25", totalDebido, config).toFixed(2);
   } else if (phase === "pago_5") {
-    amountInput.value = (totalDebido * 0.05).toFixed(2);
+    amountInput.value = getPhasePaymentAmount("pago_5", totalDebido, config).toFixed(2);
   }
 }
 
@@ -992,7 +1026,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Iniciar temporizador
   startCountdown();
   
-  // Rellenar datos fijos de APG
+  // Rellenar datos fijos de la productora
   renderProformaDetails();
   
   // Vincular eventos de formulario

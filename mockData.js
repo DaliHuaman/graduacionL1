@@ -1,4 +1,4 @@
-// Datos iniciales de la promocion para la inicializacion del almacenamiento.
+﻿// Datos iniciales de la promocion para la inicializacion del almacenamiento.
 // La lista arranca vacia para que en GitHub Pages no aparezcan usuarios de prueba.
 const DEFAULT_GRADUATES = [];
 
@@ -14,16 +14,16 @@ const DEFAULT_EPONYM = {
 };
 
 const DEFAULT_CONFIG = {
-  totalCeremonia: 520.00,
+  totalCeremonia: 500.00,
   phases: {
     adelanto: { name: "Adelanto Inicial", amount: 25.00, enabled: true },
-    pago_20: { name: "Pago 20%", pct: 0.20, enabled: false },
-    pago_50: { name: "Pago 50%", pct: 0.50, enabled: false },
-    pago_25: { name: "Pago 25%", pct: 0.25, enabled: false },
-    pago_5: { name: "Pago 5%", pct: 0.05, enabled: false }
+    pago_20: { name: "Firma de contrato 20%", pct: 0.20, amountOffset: 25.00, enabled: false },
+    pago_50: { name: "Entrega de tarjetas 30%", pct: 0.30, enabled: false },
+    pago_25: { name: "Previo a ceremonia 45%", pct: 0.45, enabled: false },
+    pago_5: { name: "Entrega de anuarios y videos 5%", pct: 0.05, enabled: false }
   },
   adminPassword: "fiee2026",
-  producerName: "APG Producciones",
+  producerName: "PYB Producciones",
   eventDate: "2026-09-25",
   eventLocation: "Gran Teatro de la UNI"
 };
@@ -78,7 +78,9 @@ function initLocalStorage() {
     localStorage.setItem("fiee_config", JSON.stringify(DEFAULT_CONFIG));
   } else {
     const config = JSON.parse(localStorage.getItem("fiee_config")) || {};
-    config.totalCeremonia = Number(config.totalCeremonia || DEFAULT_CONFIG.totalCeremonia);
+    const previousProducer = (config.producerName || "").toLowerCase();
+    const isLegacyProducer = !previousProducer || previousProducer.includes("apg");
+    config.totalCeremonia = isLegacyProducer ? DEFAULT_CONFIG.totalCeremonia : Number(config.totalCeremonia || DEFAULT_CONFIG.totalCeremonia);
     config.phases = {
       adelanto: { ...DEFAULT_CONFIG.phases.adelanto, ...(config.phases?.adelanto || {}) },
       pago_20: { ...DEFAULT_CONFIG.phases.pago_20, ...(config.phases?.pago_20 || {}) },
@@ -86,8 +88,14 @@ function initLocalStorage() {
       pago_25: { ...DEFAULT_CONFIG.phases.pago_25, ...(config.phases?.pago_25 || {}) },
       pago_5: { ...DEFAULT_CONFIG.phases.pago_5, ...(config.phases?.pago_5 || {}) }
     };
+    if (isLegacyProducer) {
+      config.phases.pago_20 = { ...config.phases.pago_20, ...DEFAULT_CONFIG.phases.pago_20 };
+      config.phases.pago_50 = { ...config.phases.pago_50, ...DEFAULT_CONFIG.phases.pago_50 };
+      config.phases.pago_25 = { ...config.phases.pago_25, ...DEFAULT_CONFIG.phases.pago_25 };
+      config.phases.pago_5 = { ...config.phases.pago_5, ...DEFAULT_CONFIG.phases.pago_5 };
+    }
     config.adminPassword = config.adminPassword || DEFAULT_CONFIG.adminPassword;
-    config.producerName = config.producerName || DEFAULT_CONFIG.producerName;
+    config.producerName = isLegacyProducer ? DEFAULT_CONFIG.producerName : config.producerName;
     config.eventDate = config.eventDate || DEFAULT_CONFIG.eventDate;
     config.eventLocation = config.eventLocation || DEFAULT_CONFIG.eventLocation;
     localStorage.setItem("fiee_config", JSON.stringify(config));
@@ -95,3 +103,4 @@ function initLocalStorage() {
 }
 
 initLocalStorage();
+

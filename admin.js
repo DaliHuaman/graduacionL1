@@ -319,7 +319,7 @@ function renderConfigPanel() {
         <li class="config-item-row">
           <div class="config-item-info">
             <h5>Adelanto Inicial (S/ 25.00)</h5>
-            <p>Cobro para separar la productora APG.</p>
+            <p>Cobro inicial para separar la fecha con PYB.</p>
           </div>
           <div class="switch-box">
             <input type="checkbox" id="phase-toggle-adelanto" ${config.phases.adelanto.enabled ? 'checked' : ''} onchange="togglePhase('adelanto', this.checked)">
@@ -328,8 +328,8 @@ function renderConfigPanel() {
         </li>
         <li class="config-item-row">
           <div class="config-item-info">
-            <h5>Pago 20%</h5>
-            <p>Primera cuota posterior al adelanto.</p>
+            <h5>${config.phases.pago_20.name}</h5>
+            <p>Firma de contrato: S/ 100.00 menos el adelanto inicial ya realizado.</p>
           </div>
           <div class="switch-box">
             <input type="checkbox" id="phase-toggle-pago_20" ${config.phases.pago_20.enabled ? 'checked' : ''} onchange="togglePhase('pago_20', this.checked)">
@@ -338,8 +338,8 @@ function renderConfigPanel() {
         </li>
         <li class="config-item-row">
           <div class="config-item-info">
-            <h5>Pago 50%</h5>
-            <p>Pago principal de acuerdo con la propuesta APG.</p>
+            <h5>${config.phases.pago_50.name}</h5>
+            <p>Pago contra entrega de tarjetas, según la proforma PYB.</p>
           </div>
           <div class="switch-box">
             <input type="checkbox" id="phase-toggle-pago_50" ${config.phases.pago_50.enabled ? 'checked' : ''} onchange="togglePhase('pago_50', this.checked)">
@@ -348,8 +348,8 @@ function renderConfigPanel() {
         </li>
         <li class="config-item-row">
           <div class="config-item-info">
-            <h5>Pago 25%</h5>
-            <p>El día de la Ceremonia en el teatro.</p>
+            <h5>${config.phases.pago_25.name}</h5>
+            <p>Pago previo al día de la ceremonia.</p>
           </div>
           <div class="switch-box">
             <input type="checkbox" id="phase-toggle-pago_25" ${config.phases.pago_25.enabled ? 'checked' : ''} onchange="togglePhase('pago_25', this.checked)">
@@ -358,8 +358,8 @@ function renderConfigPanel() {
         </li>
         <li class="config-item-row">
           <div class="config-item-info">
-            <h5>Pago 5%</h5>
-            <p>A la entrega de los materiales y anuario.</p>
+            <h5>${config.phases.pago_5.name}</h5>
+            <p>A la entrega de anuarios y videos.</p>
           </div>
           <div class="switch-box">
             <input type="checkbox" id="phase-toggle-pago_5" ${config.phases.pago_5.enabled ? 'checked' : ''} onchange="togglePhase('pago_5', this.checked)">
@@ -625,7 +625,7 @@ function exportBoxToCSV() {
   csvContent += "=========================================================\n";
   csvContent += "REPORTE DE CAJA - GRADUACION FIEE UNI 2026 - INGENIERIA ELECTRICA\n";
   csvContent += `Fecha del Reporte: ${new Date().toLocaleDateString('es-PE')} - ${new Date().toLocaleTimeString('es-PE')}\n`;
-  csvContent += "Productora del Evento: APG Producciones\n";
+  csvContent += `Productora del Evento: ${config.producerName}\n`;
   csvContent += "=========================================================\n\n";
   
   csvContent += "RESUMEN DE CAJA GENERAL\n";
